@@ -7,7 +7,6 @@
 <body>
     <h1>Estado de Pago</h1>
     <div id="result">Cargando...</div>
-    <h3>{{dni}}</h3>
 
     <script>
         // Función para obtener el DNI de la URL
@@ -26,7 +25,8 @@
                 document.getElementById("result").innerText = data;
             })
             .catch(error => {
-                document.getElementById("result").innerText = "Error: " + error;
+                //document.getElementById("result").innerText = "Error: " + error;
+                document.getElementById("result").innerText = dni;
             });
     </script>
 </body>
