@@ -5,25 +5,28 @@
     <title>Estado de Pago</title>
 </head>
 <body>
-    <h1>Verificar Estado de Pago</h1>
-    <input type="text" id="dni" placeholder="Ingrese DNI">
-    <button onclick="checkPayment()">Verificar</button>
-    <div id="result"></div>
+    <h1>Estado de Pago</h1>
+    <div id="result">Cargando...</div>
 
     <script>
-        function checkPayment() {
-            const dni = document.getElementById("dni").value;
-            const url = "https://script.google.com/macros/s/AKfycbySPonZOzkPZkPDYRy53uVNWiEPBP4Kc_uYP5Hyvbg_aIo-8jaqHJkXKXwbMWnSbdKU3A/exec";
-            
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("result").innerText = data;
-                })
-                .catch(error => {
-                    document.getElementById("result").innerText = "Error: " + error;
-                });
+        // Función para obtener el DNI de la URL
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
         }
+
+        const dni = getParameterByName("dni");
+        const url = "https://script.google.com/macros/s/AKfycbySPonZOzkPZkPDYRy53uVNWiEPBP4Kc_uYP5Hyvbg_aIo-8jaqHJkXKXwbMWnSbdKU3A/exec?dni=${dni}";
+
+        // Hacer una solicitud al script de Google Apps
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerText = data;
+            })
+            .catch(error => {
+                document.getElementById("result").innerText = "Error: " + error;
+            });
     </script>
 </body>
 </html>
