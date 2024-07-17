@@ -2,23 +2,28 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Verificar Estado de Pago</title>
-    <script>
-        async function verificarEstadoPago() {
-            const nombre = new URLSearchParams(window.location.search).get('nombre');
-            const apellido = new URLSearchParams(window.location.search).get('apellido');
-            const response = await fetch(AKfycbxtO0j-A5w0lV07Iz2Vtk6eBEK_HlX3r-VvA0dYaO-Q?nombre=${nombre}&apellido=${apellido});
-            const data = await response.json();
-            
-            document.body.innerHTML = `<h1>Estado de Pago</h1>
-                                        <p><strong>Nombre:</strong> ${nombre} ${apellido}</p>
-                                        <p><strong>Pagado:</strong> ${data.pagado !== undefined ? data.pagado : data.error}</p>`;
-        }
-
-        window.onload = verificarEstadoPago;
-    </script>
+    <title>Estado de Pago</title>
 </head>
 <body>
-    <h4> Si entro </h4>
+    <h1>Verificar Estado de Pago</h1>
+    <input type="text" id="dni" placeholder="Ingrese DNI">
+    <button onclick="checkPayment()">Verificar</button>
+    <div id="result"></div>
+
+    <script>
+        function checkPayment() {
+            const dni = document.getElementById("dni").value;
+            const url = "https://script.google.com/macros/s/AKfycbySPonZOzkPZkPDYRy53uVNWiEPBP4Kc_uYP5Hyvbg_aIo-8jaqHJkXKXwbMWnSbdKU3A/exec";
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("result").innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById("result").innerText = "Error: " + error;
+                });
+        }
+    </script>
 </body>
 </html>
